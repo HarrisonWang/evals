@@ -84,7 +84,7 @@ def is_chat_model(model_name: str) -> bool:
     if model_name in {"gpt-4-base"} or model_name.startswith("gpt-3.5-turbo-instruct"):
         return False
 
-    CHAT_MODEL_NAMES = {"gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"}
+    CHAT_MODEL_NAMES = {"gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k", "gpt-4o-mini", "gpt-4o"}
 
     if model_name in CHAT_MODEL_NAMES:
         return True
@@ -133,9 +133,9 @@ class Registry:
         n_ctx = n_ctx_from_model_name(name)
 
         if is_chat_model(name):
-            return OpenAIChatCompletionFn(model=name, n_ctx=n_ctx, **kwargs)
+            return OpenAIChatCompletionFn(model=name, n_ctx=n_ctx, api_base=os.environ.get("OPENAI_API_BASE"), **kwargs)
         elif name in self.api_model_ids:
-            return OpenAICompletionFn(model=name, n_ctx=n_ctx, **kwargs)
+            return OpenAIChatCompletionFn(model=name, n_ctx=n_ctx, api_base=os.environ.get("OPENAI_API_BASE"), **kwargs)
 
         # No match, so try to find a completion-fn-id in the registry
         spec = self.get_completion_fn(name) or self.get_solver(name)

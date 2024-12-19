@@ -358,3 +358,139 @@ generation/cot_assistant/gpt-4-turbo-preview:
           extra_options:
             temperature: 1
             max_tokens: 512
+
+# ------------------
+# gpt-4o-mini
+# ------------------
+
+# generation tasks
+
+generation/direct/gpt-4o-mini:
+  class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+  args:
+    completion_fn_options:
+      model: gpt-4o-mini
+      extra_options:
+        temperature: 1
+        max_tokens: 512
+
+generation/cot/gpt-4o-mini:
+  class: evals.solvers.nested.cot_solver:CoTSolver
+  args:
+    cot_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o-mini
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+    extract_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o-mini
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+
+# classification tasks
+
+classification/direct/gpt-4o-mini:
+  class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+  args:
+    completion_fn_options:
+      model: gpt-4o-mini
+      extra_options:
+        temperature: 0
+        max_tokens: 1
+    valid_answers: ["A", "B", "C", "D"]
+
+classification/cot/gpt-4o-mini:
+  class: evals.solvers.nested.cot_solver:CoTSolver
+  args:
+    cot_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o-mini
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+    extract_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o-mini
+          extra_options:
+            temperature: 0
+            max_tokens: 1
+        valid_answers: ["A", "B", "C", "D"]
+
+# ------------------
+# gpt-4o
+# ------------------
+
+# generation tasks
+
+generation/direct/gpt-4o:
+  class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+  args:
+    completion_fn_options:
+      model: gpt-4o
+      extra_options:
+        temperature: 1
+        max_tokens: 512
+
+generation/cot/gpt-4o:
+  class: evals.solvers.nested.cot_solver:CoTSolver
+  args:
+    cot_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+    extract_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+
+# classification tasks
+
+classification/direct/gpt-4o:
+  class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+  args:
+    completion_fn_options:
+      model: gpt-4o
+      extra_options:
+        temperature: 0
+        max_tokens: 1
+    valid_answers: ["A", "B", "C", "D"]
+
+classification/cot/gpt-4o:
+  class: evals.solvers.nested.cot_solver:CoTSolver
+  args:
+    cot_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o
+          extra_options:
+            temperature: 1
+            max_tokens: 512
+    extract_solver:
+      class: evals.solvers.providers.openai.openai_solver:OpenAISolver
+      args:
+        completion_fn_options:
+          model: gpt-4o
+          extra_options:
+            temperature: 0
+            max_tokens: 1
+        valid_answers: ["A", "B", "C", "D"]
